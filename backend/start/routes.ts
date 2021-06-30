@@ -1,0 +1,8 @@
+import 'App/Routes/PessoasRoutes'
+import 'App/Routes/BarbeirosRoutes'
+import 'App/Routes/ClientesRoutes'
+import 'App/Routes/CorteCabelosRoutes'
+import 'App/Routes/EnderecosRoutes'
+import 'App/Routes/TipoCorteCabelos'
+import 'App/Routes/TipoUsuariosRoutes'
+import 'App/Routes/UsuariosRoutes'
