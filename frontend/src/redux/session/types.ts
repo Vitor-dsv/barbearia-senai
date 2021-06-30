@@ -1,0 +1,12 @@
+export const LOGIN = 'LOGIN'
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
+export const LOGIN_ERROR = 'LOGIN_ERROR'
+
+export const LOGOUT = 'LOGOUT'
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
+export const LOGOUT_ERROR = 'LOGOUT_ERROR'
+
+export const SET_LOGGED_USER = 'SET_LOGGED_USER'
+export const SET_LOGGED_USER_SUCCESS = 'SET_LOGGED_USER_SUCCESS'
+export const SET_LOGGED_USER_ERROR = 'SET_LOGGED_USER_ERROR'
+// export {}

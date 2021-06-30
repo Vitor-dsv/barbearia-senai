@@ -1,9 +1,17 @@
+// eslint-disable-next-line no-use-before-define
 import React from 'react'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import Login from './pages/Login'
+import Register from './pages/Register'
 
-function App () {
+const App = () => {
   return (
-    <div className="App">
-    </div>
+    <BrowserRouter>
+      <Switch>
+        <Route path="/cadastro" component={Register} exact />
+        <Route path="/" component={Login} />
+      </Switch>
+    </BrowserRouter>
   )
 }
 
