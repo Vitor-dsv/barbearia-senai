@@ -25,6 +25,6 @@ export default class Pessoa extends BaseModel {
   @column({ columnName: 'endereco_id' })
   public enderecoId: number
 
-  @belongsTo(() => Endereco, { foreignKey: 'endereco_id' })
+  @belongsTo(() => Endereco, { foreignKey: 'enderecoId' })
   public endereco: BelongsTo<typeof Endereco>
 }

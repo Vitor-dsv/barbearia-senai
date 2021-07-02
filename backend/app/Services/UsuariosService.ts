@@ -56,6 +56,11 @@ export default class UsuariosService {
   }
 
   public async findOne(id: number): Promise<Usuario> {
-    return (await this._baseRepository.findOne(id)) as Usuario
+    const usuario = (await this._baseRepository.findOne(id)) as Usuario
+
+    await usuario.load('tipoUsuario')
+    await usuario.load('pessoa', (query) => query.preload('endereco'))
+
+    return usuario
   }
 }
