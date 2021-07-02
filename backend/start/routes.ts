@@ -1,5 +1,4 @@
 import 'App/Routes/PessoasRoutes'
-import 'App/Routes/BarbeirosRoutes'
 import 'App/Routes/ClientesRoutes'
 import 'App/Routes/CorteCabelosRoutes'
 import 'App/Routes/EnderecosRoutes'
