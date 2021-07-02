@@ -3,8 +3,8 @@ import { BaseModel, belongsTo, BelongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import TipoCorteCabelo from './TipoCorteCabelo'
 import Cliente from './Cliente'
 
-export default class CorteCabelo extends BaseModel {
-  public static table = 'corte_cabelo'
+export default class Atendimento extends BaseModel {
+  public static table = 'atendimento'
 
   @column({ isPrimary: true })
   public id: number

@@ -1,6 +1,6 @@
 import 'App/Routes/PessoasRoutes'
 import 'App/Routes/ClientesRoutes'
-import 'App/Routes/CorteCabelosRoutes'
+import 'App/Routes/AtendimentosRoutes'
 import 'App/Routes/EnderecosRoutes'
 import 'App/Routes/TipoCorteCabelos'
 import 'App/Routes/TipoUsuariosRoutes'
