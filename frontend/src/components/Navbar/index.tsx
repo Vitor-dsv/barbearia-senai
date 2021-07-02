@@ -1,6 +1,7 @@
 import React from 'react'
 import { Menubar } from 'primereact/menubar'
 import { Link } from 'react-router-dom'
+import Logo from '../../assets/logo.png'
 
 const Navbar = () => {
   const items = [
@@ -37,7 +38,7 @@ const Navbar = () => {
     }
   ]
 
-  const start = <img alt="logo" src="showcase/images/logo.png" height="40" className="p-mr-2"></img>
+  const start = <img alt="Logo" src={Logo} height="40" className="p-mr-2"></img>
   const end = <Link to="#" role="menuitem" className="p-menuitem-link" aria-haspopup="false" style={{ borderRadius: 5 }}>
                 <span className="p-menuitem-icon pi pi-fw pi-power-off"></span>
                 <span className="p-menuitem-text">Sair</span>
