@@ -2,6 +2,7 @@ import { DateTime } from 'luxon'
 import { BaseModel, belongsTo, BelongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import TipoCorteCabelo from './TipoCorteCabelo'
 import Cliente from './Cliente'
+import Usuario from './Usuario'
 
 export default class Atendimento extends BaseModel {
   public static table = 'atendimento'
@@ -23,4 +24,10 @@ export default class Atendimento extends BaseModel {
 
   @belongsTo(() => Cliente, { foreignKey: 'cliente_id' })
   public cliente: BelongsTo<typeof Cliente>
+
+  @column({ columnName: 'usuario_id' })
+  public usuarioId: number
+
+  @belongsTo(() => Usuario, { foreignKey: 'usuario_id' })
+  public usuario: BelongsTo<typeof Usuario>
 }
