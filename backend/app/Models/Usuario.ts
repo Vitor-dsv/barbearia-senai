@@ -20,12 +20,12 @@ export default class Usuario extends BaseModel {
   @column({ columnName: 'tipo_usuario_id' })
   public tipoUsuarioId: number
 
-  @belongsTo(() => TipoUsuario, { foreignKey: 'tipo_usuario_id' })
+  @belongsTo(() => TipoUsuario, { foreignKey: 'tipoUsuarioId' })
   public tipoUsuario: BelongsTo<typeof TipoUsuario>
 
   @column({ columnName: 'pessoa_id' })
   public pessoaId: number
 
-  @belongsTo(() => Pessoa, { foreignKey: 'pessoa_id' })
+  @belongsTo(() => Pessoa, { foreignKey: 'pessoaId' })
   public pessoa: BelongsTo<typeof Pessoa>
 }

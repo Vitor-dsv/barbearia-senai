@@ -1,12 +1,12 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { BaseController } from 'App/GenericControllers/BaseController'
-import Barbeiro from 'App/Models/Barbeiro'
-import BarbeirosService from 'App/Services/BarbeirosService'
+import Atendimento from 'App/Models/Atendimento'
+import AtendimentosService from 'App/Services/AtendimentosService'
 import { autoInjectable } from 'tsyringe'
 
 @autoInjectable()
-export default class BarbeirosController implements BaseController {
-  constructor(public _service: BarbeirosService) {}
+export default class AtendimentosController implements BaseController {
+  constructor(public _service: AtendimentosService) {}
 
   public async index({ response }: HttpContextContract) {
     const result = await this._service.find()
@@ -26,16 +26,16 @@ export default class BarbeirosController implements BaseController {
   }
 
   async create({ request, response }: HttpContextContract) {
-    const barbeiro = request.body() as Barbeiro
+    const atendimento = request.body() as Atendimento
 
-    const result = await this._service.createOrUpdate(barbeiro)
+    const result = await this._service.createOrUpdate(atendimento)
     response.json(result)
   }
 
   async update({ request, response }: HttpContextContract) {
-    const barbeiro = request.body() as Barbeiro
+    const atendimento = request.body() as Atendimento
 
-    const result = await this._service.createOrUpdate(barbeiro)
+    const result = await this._service.createOrUpdate(atendimento)
     response.json(result)
   }
 
