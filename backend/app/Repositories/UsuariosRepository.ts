@@ -1,4 +1,4 @@
-import { BaseRepository } from 'App/GenericRepository/BaseRepository'
+import { BaseRepository } from 'App/Generic/GenericRepository/BaseRepository'
 import Usuario from 'App/Models/Usuario'
 
 export default class UsuariosRepository extends BaseRepository {
