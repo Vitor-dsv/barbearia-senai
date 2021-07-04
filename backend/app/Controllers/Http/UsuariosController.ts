@@ -1,6 +1,6 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import CreateUserDto from 'App/Dtos/CreateUserDTO'
-import { BaseController } from 'App/GenericControllers/BaseController'
+import { BaseController } from 'App/Generic/GenericControllers/BaseController'
 import Usuario from 'App/Models/Usuario'
 import UsuariosService from 'App/Services/UsuariosService'
 import { autoInjectable } from 'tsyringe'
@@ -52,5 +52,20 @@ export default class UsuariosController implements BaseController {
 
     const result = await this._service.delete(id)
     response.json(result)
+  }
+
+  async validUser({ params, response, auth }: HttpContextContract) {
+    const login = params.login
+    const senha = params.senha
+
+    const result = await this._service.validUser({ login, senha })
+
+    if (result) {
+      await auth.use('basic').authenticate()
+
+      response.json(auth.user)
+    } else {
+      response.json('aaaaa')
+    }
   }
 }

@@ -4,6 +4,7 @@ import { autoInjectable } from 'tsyringe'
 import CreateUserDto from 'App/Dtos/CreateUserDTO'
 import Endereco from 'App/Models/Endereco'
 import Pessoa from 'App/Models/Pessoa'
+import Database from '@ioc:Adonis/Lucid/Database'
 
 @autoInjectable()
 export default class UsuariosService {
@@ -67,6 +68,17 @@ export default class UsuariosService {
 
     await usuario.load('tipoUsuario')
     await usuario.load('pessoa', (query) => query.preload('endereco'))
+
+    return usuario
+  }
+
+  public async validUser(credenciais: { login: string; senha: string }): Promise<boolean> {
+    const usuario =
+      (
+        await Database.from('usuario')
+          .where('login', '=', credenciais.login)
+          .andWhere('senha', '=', credenciais.senha)
+      ).length > 0
 
     return usuario
   }

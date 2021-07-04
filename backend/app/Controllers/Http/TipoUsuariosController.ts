@@ -1,5 +1,5 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import { BaseController } from 'App/GenericControllers/BaseController'
+import { BaseController } from 'App/Generic/GenericControllers/BaseController'
 import TipoUsuario from 'App/Models/TipoUsuario'
 import TipoUsuariosService from 'App/Services/TipoUsuariosService'
 import { autoInjectable } from 'tsyringe'
