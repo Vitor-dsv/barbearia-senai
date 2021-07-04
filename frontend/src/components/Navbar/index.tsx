@@ -10,12 +10,9 @@ const Navbar = () => {
       icon: 'pi pi-fw pi-plus',
       items: [
         {
-          label: 'Secretário',
-          icon: 'pi pi-fw pi-id-card'
-        },
-        {
-          label: 'Barbeiro',
-          icon: 'pi pi-fw pi-users'
+          label: 'Usuário',
+          icon: 'pi pi-fw pi-user',
+          url: 'usuarios'
         },
         {
           label: 'Cliente',
@@ -27,7 +24,8 @@ const Navbar = () => {
         },
         {
           label: 'Corte',
-          icon: 'pi pi-fw pi-pencil'
+          icon: 'pi pi-fw pi-pencil',
+          url: '/cortes'
         }
 
       ]

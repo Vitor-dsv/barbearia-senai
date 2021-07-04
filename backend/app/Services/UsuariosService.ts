@@ -26,7 +26,12 @@ export default class UsuariosService {
     usuarioAdd.pessoaId = pessoaId
     usuarioAdd.tipoUsuarioId = item.idTipoUsuario
 
-    return (await this._baseRepository.createOrUpdate(usuarioAdd)) as Usuario
+    const usuario = await this._baseRepository.createOrUpdate(usuarioAdd) as Usuario
+
+    await usuario.load('pessoa', query => query.preload('endereco'))
+    await usuario.load('tipoUsuario')
+
+    return usuario
   }
 
   // Retornar o ID do Endereco adicionando.
@@ -53,7 +58,9 @@ export default class UsuariosService {
   }
 
   public async find(): Promise<Usuario[]> {
-    return (await this._baseRepository.find()) as Usuario[]
+    const usuarios = this._baseRepository.getAll()
+
+    return usuarios
   }
 
   public async findOne(id: number): Promise<Usuario> {

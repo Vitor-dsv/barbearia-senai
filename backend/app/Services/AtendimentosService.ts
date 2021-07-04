@@ -17,7 +17,7 @@ export default class AtendimentosService {
   }
 
   public async find(): Promise<Atendimento[]> {
-    return (await this._baseRepository.find()) as Atendimento[]
+    return (await this._baseRepository.getAll()) as Atendimento[]
   }
 
   public async findOne(id: number): Promise<Atendimento> {

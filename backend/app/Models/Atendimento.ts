@@ -16,18 +16,18 @@ export default class Atendimento extends BaseModel {
   @column({ columnName: 'tipo_corte_cabelo_id' })
   public tipoCorteCabeloId: number
 
-  @belongsTo(() => TipoCorteCabelo, { foreignKey: 'tipo_corte_cabelo_id' })
+  @belongsTo(() => TipoCorteCabelo, { foreignKey: 'tipoCorteCabeloId' })
   public tipoCorteCabelo: BelongsTo<typeof TipoCorteCabelo>
 
   @column({ columnName: 'cliente_id' })
   public clienteId: number
 
-  @belongsTo(() => Cliente, { foreignKey: 'cliente_id' })
+  @belongsTo(() => Cliente, { foreignKey: 'clienteId' })
   public cliente: BelongsTo<typeof Cliente>
 
   @column({ columnName: 'usuario_id' })
   public usuarioId: number
 
-  @belongsTo(() => Usuario, { foreignKey: 'usuario_id' })
+  @belongsTo(() => Usuario, { foreignKey: 'usuarioId' })
   public usuario: BelongsTo<typeof Usuario>
 }
