@@ -2,23 +2,18 @@ import React, { useState } from 'react'
 import { InputText } from 'primereact/inputtext'
 import { Button } from 'primereact/button'
 import { Checkbox } from 'primereact/checkbox'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { useFormik } from 'formik'
 import { LoginSchema } from './schema'
 import { useValidateInput } from '../../hooks/useValidateInput'
 import { classNames } from 'primereact/utils'
 
 const LoginForm = () => {
+  const history = useHistory()
   const [rememberPassword, setRememberPassword] = useState(true)
 
-  const handleSubmit = (e: any) => {
-    e.preventDefault()
-
-    try {
-      alert('login')
-    } catch (error) {
-      console.log(error)
-    }
+  const handleSubmit = () => {
+    history.push('/usuarios')
   }
 
   const formik = useFormik({
@@ -71,10 +66,6 @@ const LoginForm = () => {
       </div>
       <div className="p-col-12">
         <Button label="Entrar" type="submit" />
-      </div>
-      <div className="p-col-12 text">
-        Ainda não possui uma conta?
-        <Link to="/cadastro" style={{ textDecoration: 'none', color: 'grey' }}> Registre-se</Link>
       </div>
       </div>
     </form>

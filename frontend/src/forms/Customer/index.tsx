@@ -4,7 +4,7 @@ import { useFormik } from 'formik'
 import { Button } from 'primereact/button'
 import HaircutTypeService from '../../services/HaircutType/HaircutTypeService'
 
-const HaircutTypeForm = ({ haircut, haircuts, setHaircuts, onHide }: any) => {
+const CustomerForm = ({ haircut, haircuts, setHaircuts, onHide }: any) => {
   const handleSubmit = async (values: any) => {
     try {
       if (haircut?.id) {
@@ -72,4 +72,4 @@ const HaircutTypeForm = ({ haircut, haircuts, setHaircuts, onHide }: any) => {
   )
 }
 
-export default HaircutTypeForm
+export default CustomerForm

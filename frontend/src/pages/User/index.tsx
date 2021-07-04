@@ -1,52 +1,50 @@
 import React, { useState, useEffect } from 'react'
-import HaircutStyleForm from '../../forms/HaircutStyle'
 import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
 import { Button } from 'primereact/button'
 import { Dialog } from 'primereact/dialog'
-import HaircutTypeService from '../../services/HaircutType/HaircutTypeService'
+import UserService from '../../services/User/UserService'
+import UserForm from '../../forms/User'
 
-interface IHaircut {
+interface IUser {
   id: number
-  description: string
-  price: number
-  duration: number
 }
 
-const HaircutStyle = () => {
-  const [haircuts, setHaircuts] = useState<IHaircut[]>([])
-  const [selectedHaircut, setSelectedHaircut] = useState<IHaircut>()
+const User = () => {
+  const [users, setUsers] = useState<IUser[]>([])
+  const [selectedUser, setSelectedUser] = useState<IUser>()
   const [isVisibleModal, setIsVisibleModal] = useState(false)
 
-  const getHaircuts = async () => {
-    const haircuts = await HaircutTypeService.getAll()
+  const getUsers = async () => {
+    const users = await UserService.getAll()
 
-    setHaircuts(haircuts)
+    setUsers(users)
   }
 
-  const deleteHaircut = async (id: number) => {
-    await HaircutTypeService.delete(id)
+  const deleteUser = async (id: number) => {
+    await UserService.delete(id)
 
-    const filteredHaircuts = haircuts.filter(haircut => haircut?.id !== id)
+    const filteredUsers = users.filter(user => user?.id !== id)
 
-    setHaircuts(filteredHaircuts)
-    setSelectedHaircut(undefined)
+    setUsers(filteredUsers)
+    setSelectedUser(undefined)
   }
 
   useEffect(() => {
-    getHaircuts()
+    getUsers()
   }, [])
 
   return (
     <div className="p-grid p-fluid p-mt-3">
-      <div className="p-col-10 p-md-7 p-mx-auto text"><h1>Cortes de cabelo</h1></div>
+      <div className="p-col-10 p-md-7 p-mx-auto text"><h1>Usuários</h1></div>
       <div className="p-grid p-col-10 p-md-7 p-mx-auto">
+        {console.log(selectedUser)}
         <div className="p-col">
           <Button
             icon="pi pi-plus-circle"
             label="Novo"
             className="p-button-success"
-            disabled={!!selectedHaircut?.id}
+            disabled={!!selectedUser?.id}
             onClick={() => setIsVisibleModal(true)}
           />
         </div>
@@ -55,7 +53,7 @@ const HaircutStyle = () => {
             icon="pi pi-pencil"
             label="Alterar"
             className="p-button-primary"
-            disabled={!selectedHaircut?.id}
+            disabled={!selectedUser?.id}
             onClick={() => setIsVisibleModal(true)}
           />
         </div>
@@ -64,25 +62,27 @@ const HaircutStyle = () => {
           icon="pi pi-times-circle"
           label="Excluir"
           className="p-button-secondary"
-          disabled={!selectedHaircut?.id}
-          onClick={() => deleteHaircut(Number(selectedHaircut?.id))}
+          disabled={!selectedUser?.id}
+          onClick={() => deleteUser(Number(selectedUser?.id))}
         />
         </div>
       </div>
-      <div className="p-col-10 p-md-7 p-mx-auto">
-        {console.log(selectedHaircut)}
+      <div className="p-col-10 p-md-7 p-mx-auto datatable-responsive-demo">
         <DataTable
-          value={haircuts}
-          selection={selectedHaircut}
-          onSelectionChange={e => setSelectedHaircut(e.value)}
+          value={users}
+          selection={selectedUser}
+          onSelectionChange={e => setSelectedUser(e.value)}
           rowHover
           selectionMode="checkbox"
+          className="p-datatable-responsive-demo"
         >
             <Column selectionMode="single" style={{ width: '3em' }}/>
             <Column field="id" header="ID" />
-            <Column field="descricao" header="Descrição" />
-            <Column field="preco" header="Preço" />
-            <Column field="duracao" header="Duração" />
+            <Column field="login" header="Login" />
+            <Column field="pessoa.nome" header="Nome" />
+            <Column field="pessoa.cpf" header="CPF" />
+            <Column field="pessoa.endereco.cidade" header="Cidade" />
+            <Column field="tipoUsuario.descricao" header="Tipo" />
         </DataTable>
       </div>
       {isVisibleModal && (
@@ -91,12 +91,12 @@ const HaircutStyle = () => {
           visible={isVisibleModal}
           onHide={() => setIsVisibleModal(false)}
           style={{ width: '70vw' }}
-          header="Corte de cabelo"
+          header="Usuário"
         >
-          <HaircutStyleForm
-            setHaircuts={setHaircuts}
-            haircuts={haircuts}
-            haircut={selectedHaircut}
+          <UserForm
+            setUsers={setUsers}
+            users={users}
+            user={selectedUser}
             onHide={() => setIsVisibleModal(false)}
           />
         </Dialog>
@@ -105,4 +105,4 @@ const HaircutStyle = () => {
   )
 }
 
-export default HaircutStyle
+export default User
