@@ -12,13 +12,17 @@ export abstract class BaseRepository implements Write, Read {
   public async createOrUpdate(item: LucidRow): Promise<LucidRow> {
     try {
       const id = item.$getAttribute('id')
-      let itemSave: LucidRow
 
       if (id) {
+        // Validar se o registro existe, caso não exista ele vai dar erro.
         const newItem = await this._baseModel.findOrFail(id)
-        itemSave = newItem.merge(item)
-      } else {
-        itemSave = item
+
+        // Substrituir cada atributo pelo o mesmo do novo modelo.
+        Object.keys(newItem.$attributes).forEach((column) => {
+          newItem.$attributes[column] = item[column]
+        })
+
+        return await newItem.save()
       }
 
       return await item.save()
