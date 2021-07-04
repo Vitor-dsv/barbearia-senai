@@ -10,6 +10,6 @@ export default class Cliente extends BaseModel {
   @column({ columnName: 'pessoa_id' })
   public pessoaId: number
 
-  @belongsTo(() => Pessoa, { foreignKey: 'pessoa_id' })
+  @belongsTo(() => Pessoa, { foreignKey: 'pessoaId' })
   public pessoa: BelongsTo<typeof Pessoa>
 }
