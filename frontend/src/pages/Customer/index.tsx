@@ -3,37 +3,34 @@ import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
 import { Button } from 'primereact/button'
 import { Dialog } from 'primereact/dialog'
-import UserService from '../../services/User/UserService'
-import AttendanceForm from '../../forms/Attendance'
-import AttendanceService from '../../services/Attendance/AttendanceService'
-import moment from 'moment'
+import CustomerService from '../../services/Customer/CustomerService'
 
-interface IAttendance {
+interface ICustomer {
   id: number
 }
 
-const Attendace = () => {
-  const [attendances, setAttendances] = useState<IAttendance[]>([])
-  const [selectedAttendance, setSelectedAttendance] = useState<IAttendance>()
+const Customer = () => {
+  const [customers, setCustomers] = useState<ICustomer[]>([])
+  const [selectedCustomer, setSelectedCustomer] = useState<ICustomer>()
   const [isVisibleModal, setIsVisibleModal] = useState(false)
 
-  const getAttendances = async () => {
-    const attendances = await AttendanceService.getAll()
+  const getCustomers = async () => {
+    const customers = await CustomerService.getAll()
 
-    setAttendances(attendances)
+    setCustomers(customers)
   }
 
-  const deleteAttendance = async (id: number) => {
-    await UserService.delete(id)
+  const deleteCustomer = async (id: number) => {
+    // await CustomerService.delete(id)
 
-    const filteredAttendances = attendances.filter(attendances => attendances?.id !== id)
+    // const filteredAttendances = attendances.filter(attendances => attendances?.id !== id)
 
-    setAttendances(filteredAttendances)
-    setSelectedAttendance(undefined)
+    // setAttendances(filteredAttendances)
+    // setSelectedAttendance(undefined)
   }
 
   useEffect(() => {
-    getAttendances()
+    getCustomers()
   }, [])
 
   return (
@@ -45,7 +42,7 @@ const Attendace = () => {
             icon="pi pi-plus-circle"
             label="Novo"
             className="p-button-success"
-            disabled={!!selectedAttendance?.id}
+            disabled={!!selectedCustomer?.id}
             onClick={() => setIsVisibleModal(true)}
           />
         </div>
@@ -54,7 +51,7 @@ const Attendace = () => {
             icon="pi pi-pencil"
             label="Alterar"
             className="p-button-primary"
-            disabled={!selectedAttendance?.id}
+            disabled={!selectedCustomer?.id}
             onClick={() => setIsVisibleModal(true)}
           />
         </div>
@@ -63,26 +60,24 @@ const Attendace = () => {
           icon="pi pi-times-circle"
           label="Excluir"
           className="p-button-secondary"
-          disabled={!selectedAttendance?.id}
-          onClick={() => deleteAttendance(Number(selectedAttendance?.id))}
+          disabled={!selectedCustomer?.id}
+          onClick={() => deleteCustomer(Number(selectedCustomer?.id))}
         />
         </div>
       </div>
       <div className="p-col-10 p-md-7 p-mx-auto datatable-responsive-demo">
         <DataTable
-          value={attendances}
-          selection={selectedAttendance}
-          onSelectionChange={e => setSelectedAttendance(e.value)}
+          value={customers}
+          selection={selectedCustomer}
+          onSelectionChange={e => setSelectedCustomer(e.value)}
           rowHover
           selectionMode="checkbox"
           className="p-datatable-responsive-demo"
         >
           <Column selectionMode="single" style={{ width: '3em' }}/>
           <Column field="id" header="ID" />
-          <Column field="data_horario" header="Data" body={data => moment(data.data_horario).format('DD/MM/YYYY HH:mm')} />
-          <Column field="tipoCorteCabelo.descricao" header="Corte" />
-          <Column field="cliente.pessoa.nome" header="Cliente" />
-          <Column field="usuario.pessoa.nome" header="Barbeiro" />
+          <Column field="pessoa.nome" header="Nome" />
+          <Column field="pessoa.telefone" header="Telefone" />
         </DataTable>
       </div>
       {isVisibleModal && (
@@ -93,16 +88,16 @@ const Attendace = () => {
           style={{ width: '70vw' }}
           header="Usuário"
         >
-          <AttendanceForm
+          {/* <AttendanceForm
             setAttendances={setAttendances}
             attendances={attendances}
             attendance={selectedAttendance}
             onHide={() => setIsVisibleModal(false)}
-          />
+          /> */}
         </Dialog>
       )}
     </div>
   )
 }
 
-export default Attendace
+export default Customer
