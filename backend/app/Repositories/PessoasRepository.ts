@@ -5,4 +5,10 @@ export default class PessoasRepository extends BaseRepository {
   constructor() {
     super(Pessoa)
   }
+
+  public async getAll(): Promise<Pessoa[]> {
+    const result = await Pessoa.query().preload('endereco')
+
+    return result
+  }
 }

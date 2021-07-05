@@ -9,7 +9,9 @@ export default class PessoasService {
   public async createOrUpdate(item: Pessoa): Promise<Pessoa> {
     const pessoa = new Pessoa().merge(item)
 
-    return (await this._baseRepository.createOrUpdate(pessoa)) as Pessoa
+    const result = (await this._baseRepository.createOrUpdate(pessoa)) as Pessoa
+
+    return await this.load(result)
   }
 
   public async delete(id: number): Promise<Number> {
@@ -17,10 +19,17 @@ export default class PessoasService {
   }
 
   public async find(): Promise<Pessoa[]> {
-    return (await this._baseRepository.find()) as Pessoa[]
+    return (await this._baseRepository.getAll()) as Pessoa[]
   }
 
   public async findOne(id: number): Promise<Pessoa> {
-    return (await this._baseRepository.findOne(id)) as Pessoa
+    const result = (await this._baseRepository.findOne(id)) as Pessoa
+    return await this.load(result)
+  }
+
+  private async load(pessoa: Pessoa): Promise<Pessoa> {
+    await pessoa.load('endereco')
+
+    return pessoa
   }
 }
