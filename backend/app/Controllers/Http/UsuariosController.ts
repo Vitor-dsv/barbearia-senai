@@ -1,7 +1,6 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import CreateUserDto from 'App/Dtos/CreateUserDTO'
+import ModifyUserDto from 'App/Dtos/ModifyUserDto'
 import { BaseController } from 'App/Generic/GenericControllers/BaseController'
-import Usuario from 'App/Models/Usuario'
 import UsuariosService from 'App/Services/UsuariosService'
 import { autoInjectable } from 'tsyringe'
 
@@ -27,21 +26,14 @@ export default class UsuariosController implements BaseController {
   }
 
   async create({ request, response }: HttpContextContract) {
-    const usuario = request.body() as Usuario
+    const usuario = request.body() as ModifyUserDto
 
     const result = await this._service.createOrUpdate(usuario)
     response.json(result)
   }
 
-  async createUserFull({ request, response }: HttpContextContract) {
-    const usuario = request.body() as CreateUserDto
-
-    const newUser = await this._service.createUserFull(usuario)
-    response.json(newUser)
-  }
-
   async update({ request, response }: HttpContextContract) {
-    const usuario = request.body() as Usuario
+    const usuario = request.body() as ModifyUserDto
 
     const result = await this._service.createOrUpdate(usuario)
     response.json(result)

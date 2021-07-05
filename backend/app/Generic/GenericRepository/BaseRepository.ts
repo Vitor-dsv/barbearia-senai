@@ -22,8 +22,6 @@ export abstract class BaseRepository implements Write, Read {
           newItem.$attributes[column] = item[column]
         })
 
-        console.log('newItem - ', newItem)
-
         return await newItem.save()
       }
 

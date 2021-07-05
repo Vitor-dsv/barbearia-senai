@@ -1,56 +1,48 @@
 import UsuariosRepository from 'App/Repositories/UsuariosRepository'
 import Usuario from 'App/Models/Usuario'
 import { autoInjectable } from 'tsyringe'
-import CreateUserDto from 'App/Dtos/CreateUserDTO'
 import Endereco from 'App/Models/Endereco'
 import Pessoa from 'App/Models/Pessoa'
 import Database from '@ioc:Adonis/Lucid/Database'
+import ModifyUserDto from 'App/Dtos/ModifyUserDto'
+import EnderecosRepository from 'App/Repositories/EnderecosRepository'
+import EnderecoDto from 'App/Dtos/EnderecoDto'
+import PessoasRepository from 'App/Repositories/PessoasRepository'
+import { ModifyPessoaDto } from 'App/Dtos/ModifyPessoaDto'
 
 @autoInjectable()
 export default class UsuariosService {
-  constructor(private readonly _baseRepository: UsuariosRepository) {}
+  constructor(
+    private readonly _baseRepository: UsuariosRepository,
+    private readonly _enderecoRepository: EnderecosRepository,
+    private readonly pessoaRepository: PessoasRepository
+  ) {}
 
-  public async createOrUpdate(item: Usuario): Promise<Usuario> {
-    const usuario = new Usuario().merge(item)
-
-    return (await this._baseRepository.createOrUpdate(usuario)) as Usuario
-  }
-
-  // Cria a Pessoa, Endereço e o Usuario e realiza a integração entre os dados na tabela.
-  public async createUserFull(item: CreateUserDto): Promise<Usuario> {
-    const enderecoId = await this.usertToEndereco(item)
-    const pessoaId = await this.userToPessoa(item, enderecoId)
+  public async createOrUpdate(item: ModifyUserDto): Promise<Usuario> {
+    const enderecoId = await this.userToEndereco(item.pessoa.endereco)
+    const pessoaId = await this.userToPessoa(item.pessoa, enderecoId)
 
     const usuarioAdd = new Usuario()
-    usuarioAdd.merge(item.usuario)
-    usuarioAdd.pessoaId = pessoaId
-    usuarioAdd.tipoUsuarioId = item.idTipoUsuario
+    usuarioAdd.merge(item)
 
     const usuario = (await this._baseRepository.createOrUpdate(usuarioAdd)) as Usuario
 
-    await usuario.load('pessoa', (query) => query.preload('endereco'))
-    await usuario.load('tipoUsuario')
-
-    return usuario
+    return await this.load(usuario)
   }
 
-  // Retornar o ID do Endereco adicionando.
-  private async usertToEndereco({ endereco }: CreateUserDto): Promise<number> {
-    const enderecoMerge = new Endereco()
-    enderecoMerge.merge(endereco)
+  private async userToEndereco(endereco: EnderecoDto): Promise<number> {
+    const enderecoMerge = new Endereco().merge(endereco)
+    const newEndereco = await this._enderecoRepository.createOrUpdate(enderecoMerge)
 
-    const newEndereco = await enderecoMerge.save()
-    return newEndereco.id
+    return newEndereco.$attributes.id
   }
 
-  // Retorar o ID da Pessoa adicionada.
-  private async userToPessoa({ pessoa }: CreateUserDto, idEndereco: number): Promise<number> {
-    const pessoaMerge = new Pessoa()
-    pessoaMerge.merge(pessoa)
-    pessoaMerge.enderecoId = idEndereco
+  private async userToPessoa(pessoa: ModifyPessoaDto, enderecoId: number): Promise<number> {
+    const pessoaMerge = new Pessoa().merge(pessoa)
+    pessoaMerge.enderecoId = enderecoId
 
-    const newPessoa = await pessoaMerge.save()
-    return newPessoa.id
+    const newPessoa = await this.pessoaRepository.createOrUpdate(pessoaMerge)
+    return newPessoa.$attributes.id
   }
 
   public async delete(id: number): Promise<Number> {
@@ -58,9 +50,7 @@ export default class UsuariosService {
   }
 
   public async find(): Promise<Usuario[]> {
-    const usuarios = this._baseRepository.getAll()
-
-    return usuarios
+    return await this._baseRepository.getAll()
   }
 
   public async findOne(id: number): Promise<Usuario> {
@@ -69,7 +59,7 @@ export default class UsuariosService {
     await usuario.load('tipoUsuario')
     await usuario.load('pessoa', (query) => query.preload('endereco'))
 
-    return usuario
+    return await this.load(usuario)
   }
 
   public async validUser(credenciais: { login: string; senha: string }): Promise<boolean> {
@@ -79,6 +69,14 @@ export default class UsuariosService {
           .where('login', '=', credenciais.login)
           .andWhere('senha', '=', credenciais.senha)
       ).length > 0
+
+    return usuario
+  }
+
+  private async load(usuario: Usuario): Promise<Usuario> {
+    await usuario.load('pessoa')
+    await usuario.pessoa.load('endereco')
+    await usuario.load('tipoUsuario')
 
     return usuario
   }

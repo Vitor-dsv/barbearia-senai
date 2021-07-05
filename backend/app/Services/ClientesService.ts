@@ -5,9 +5,9 @@ import ModifyClientDto from 'App/Dtos/ModifyClientDto'
 import Endereco from 'App/Models/Endereco'
 import Pessoa from 'App/Models/Pessoa'
 import EnderecoDto from 'App/Dtos/EnderecoDto'
-import PessoaDto from 'App/Dtos/PessoaDto'
 import EnderecosRepository from 'App/Repositories/EnderecosRepository'
 import PessoasRepository from 'App/Repositories/PessoasRepository'
+import { ModifyPessoaDto } from 'App/Dtos/ModifyPessoaDto'
 
 @autoInjectable()
 export default class ClientesService {
@@ -38,7 +38,7 @@ export default class ClientesService {
     return newEndereco.$attributes.id
   }
 
-  private async clienteToPessoa(pessoa: PessoaDto, enderecoId: number): Promise<number> {
+  private async clienteToPessoa(pessoa: ModifyPessoaDto, enderecoId: number): Promise<number> {
     const pessoaMerge = new Pessoa().merge(pessoa)
     pessoaMerge.enderecoId = enderecoId
 

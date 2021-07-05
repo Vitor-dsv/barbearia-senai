@@ -7,9 +7,8 @@ export default class UsuariosRepository extends BaseRepository {
   }
 
   public async getAll() {
-    const usuarios = await Usuario
-      .query()
-      .preload('pessoa', query => {
+    const usuarios = await Usuario.query()
+      .preload('pessoa', (query) => {
         query.preload('endereco')
       })
       .preload('tipoUsuario')
