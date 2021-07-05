@@ -1,40 +1,49 @@
 import ClientesRepository from 'App/Repositories/ClientesRepository'
 import Cliente from 'App/Models/Cliente'
 import { autoInjectable } from 'tsyringe'
-import CreateClientDto from 'App/Dtos/CreateClientDto'
-import EnderecosService from './EnderecosService'
+import ModifyClientDto from 'App/Dtos/ModifyClientDto'
 import Endereco from 'App/Models/Endereco'
 import Pessoa from 'App/Models/Pessoa'
 import EnderecoDto from 'App/Dtos/EnderecoDto'
 import PessoaDto from 'App/Dtos/PessoaDto'
+import EnderecosRepository from 'App/Repositories/EnderecosRepository'
+import PessoasRepository from 'App/Repositories/PessoasRepository'
 
 @autoInjectable()
 export default class ClientesService {
-  constructor(private readonly _baseRepository: ClientesRepository) {}
+  constructor(
+    private readonly _baseRepository: ClientesRepository,
+    private readonly _enderecoRepository: EnderecosRepository,
+    private readonly pessoaRepository: PessoasRepository
+  ) {}
 
-  public async createOrUpdate(clienteDto: CreateClientDto): Promise<Cliente> {
-    const enderecoId = await this.clienteToEndereco(clienteDto.endereco)
+  public async createOrUpdate(clienteDto: ModifyClientDto): Promise<Cliente> {
+    const enderecoId = await this.clienteToEndereco(clienteDto.pessoa.endereco)
     const pessoaId = await this.clienteToPessoa(clienteDto.pessoa, enderecoId)
 
     const cliente = new Cliente()
+
+    if (clienteDto.id) cliente.id = clienteDto.id
     cliente.pessoaId = pessoaId
 
-    return (await this._baseRepository.createOrUpdate(cliente)) as Cliente
+    const clientAdd = (await this._baseRepository.createOrUpdate(cliente)) as Cliente
+
+    return await this.load(clientAdd)
   }
 
   private async clienteToEndereco(endereco: EnderecoDto): Promise<number> {
     const enderecoMerge = new Endereco().merge(endereco)
-    const newEndereco = await enderecoMerge.save()
+    const newEndereco = await this._enderecoRepository.createOrUpdate(enderecoMerge)
 
-    return newEndereco.id
+    return newEndereco.$attributes.id
   }
 
   private async clienteToPessoa(pessoa: PessoaDto, enderecoId: number): Promise<number> {
     const pessoaMerge = new Pessoa().merge(pessoa)
     pessoaMerge.enderecoId = enderecoId
 
-    const newPessoa = await pessoaMerge.save()
-    return newPessoa.id
+    const newPessoa = await this.pessoaRepository.createOrUpdate(pessoaMerge)
+    return newPessoa.$attributes.id
   }
 
   public async delete(id: number): Promise<Number> {
@@ -46,6 +55,14 @@ export default class ClientesService {
   }
 
   public async findOne(id: number): Promise<Cliente> {
-    return (await this._baseRepository.findOne(id)) as Cliente
+    const result = (await this._baseRepository.findOne(id)) as Cliente
+    return await this.load(result)
+  }
+
+  private async load(cliente: Cliente): Promise<Cliente> {
+    await cliente.load('pessoa')
+    await cliente.pessoa.load('endereco')
+
+    return cliente
   }
 }

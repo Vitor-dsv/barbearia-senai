@@ -1,6 +1,6 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import ModifyClientDto from 'App/Dtos/ModifyClientDto'
 import { BaseController } from 'App/Generic/GenericControllers/BaseController'
-import Cliente from 'App/Models/Cliente'
 import ClientesService from 'App/Services/ClientesService'
 import { autoInjectable } from 'tsyringe'
 
@@ -26,14 +26,14 @@ export default class ClientesController implements BaseController {
   }
 
   async create({ request, response }: HttpContextContract) {
-    const cliente = request.body() as Cliente
+    const cliente = request.body() as ModifyClientDto
 
     const result = await this._service.createOrUpdate(cliente)
     response.json(result)
   }
 
   async update({ request, response }: HttpContextContract) {
-    const cliente = request.body() as Cliente
+    const cliente = request.body() as ModifyClientDto
 
     const result = await this._service.createOrUpdate(cliente)
     response.json(result)
