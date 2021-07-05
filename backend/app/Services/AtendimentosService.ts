@@ -9,7 +9,8 @@ export default class AtendimentosService {
   public async createOrUpdate(item: Atendimento): Promise<Atendimento> {
     const atendimento = new Atendimento().merge(item)
 
-    return (await this._baseRepository.createOrUpdate(atendimento)) as Atendimento
+    const result = (await this._baseRepository.createOrUpdate(atendimento)) as Atendimento
+    return await this.load(result)
   }
 
   public async delete(id: number): Promise<Number> {
@@ -21,6 +22,22 @@ export default class AtendimentosService {
   }
 
   public async findOne(id: number): Promise<Atendimento> {
-    return (await this._baseRepository.findOne(id)) as Atendimento
+    const result = (await this._baseRepository.findOne(id)) as Atendimento
+    return await this.load(result)
+  }
+
+  private async load(atendimento: Atendimento): Promise<Atendimento> {
+    await atendimento.load('cliente')
+    await atendimento.cliente.load('pessoa')
+    await atendimento.cliente.pessoa.load('endereco')
+
+    await atendimento.load('tipoCorteCabelo')
+
+    await atendimento.load('usuario')
+    await atendimento.usuario.load('pessoa')
+    await atendimento.usuario.pessoa.load('endereco')
+    await atendimento.usuario.load('tipoUsuario')
+
+    return atendimento
   }
 }
