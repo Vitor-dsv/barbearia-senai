@@ -42,7 +42,7 @@ export default class ClientesService {
   }
 
   public async find(): Promise<Cliente[]> {
-    return (await this._baseRepository.find()) as Cliente[]
+    return (await this._baseRepository.getAll()) as Cliente[]
   }
 
   public async findOne(id: number): Promise<Cliente> {

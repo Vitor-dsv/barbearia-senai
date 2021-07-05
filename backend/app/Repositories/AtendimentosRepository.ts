@@ -7,12 +7,11 @@ export default class AtendimentoRepository extends BaseRepository {
   }
 
   public async getAll() {
-    const atendimentos = await Atendimento
-      .query()
+    const atendimentos = await Atendimento.query()
       .preload('tipoCorteCabelo')
-      .preload('cliente', query => query.preload('pessoa'))
-      .preload('usuario', query => query.preload('pessoa'))
-    
+      .preload('cliente', (query) => query.preload('pessoa'))
+      .preload('usuario', (query) => query.preload('pessoa'))
+
     return atendimentos
   }
 }
