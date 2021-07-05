@@ -5,6 +5,8 @@ import Login from './pages/Login'
 import PrivateRoute from './components/PrivateRoute'
 import HaircutStyle from './pages/HaircutType'
 import User from './pages/User'
+import Attendance from './pages/Attendance'
+import Customer from './pages/Customer'
 
 const App = () => {
   return (
@@ -12,6 +14,8 @@ const App = () => {
       <Switch>
         <PrivateRoute path="/cortes" exact><HaircutStyle /></PrivateRoute>
         <PrivateRoute path="/usuarios" exact><User /></PrivateRoute>
+        <PrivateRoute path="/atendimentos" exact><Attendance /></PrivateRoute>
+        <PrivateRoute path="/clientes" exact><Customer /></PrivateRoute>
         <Route path="/" component={Login} />
       </Switch>
     </BrowserRouter>

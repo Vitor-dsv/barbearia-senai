@@ -16,16 +16,18 @@ const Navbar = () => {
         },
         {
           label: 'Cliente',
-          icon: 'pi pi-fw pi-user-plus'
+          icon: 'pi pi-fw pi-user-plus',
+          url: 'clientes'
         },
         {
           label: 'Atendimento',
-          icon: 'pi pi-fw pi-calendar-plus'
+          icon: 'pi pi-fw pi-calendar-plus',
+          url: 'atendimentos'
         },
         {
           label: 'Corte',
           icon: 'pi pi-fw pi-pencil',
-          url: '/cortes'
+          url: 'cortes'
         }
 
       ]
