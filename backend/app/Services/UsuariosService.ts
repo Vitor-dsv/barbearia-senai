@@ -26,9 +26,9 @@ export default class UsuariosService {
     usuarioAdd.pessoaId = pessoaId
     usuarioAdd.tipoUsuarioId = item.idTipoUsuario
 
-    const usuario = await this._baseRepository.createOrUpdate(usuarioAdd) as Usuario
+    const usuario = (await this._baseRepository.createOrUpdate(usuarioAdd)) as Usuario
 
-    await usuario.load('pessoa', query => query.preload('endereco'))
+    await usuario.load('pessoa', (query) => query.preload('endereco'))
     await usuario.load('tipoUsuario')
 
     return usuario
