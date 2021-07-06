@@ -38,19 +38,19 @@ const Navbar = () => {
     }
   ]
 
-  const start = <img alt="Logo" src={Logo} height="40" className="p-mr-2"></img>
+  const start = <img alt="Logo" src={Logo} height="80" className="p-mr-2"></img>
   const end = <Link to="#" role="menuitem" className="p-menuitem-link" aria-haspopup="false" style={{ borderRadius: 5 }}>
-                <span className="p-menuitem-icon pi pi-fw pi-power-off"></span>
-                <span className="p-menuitem-text">Sair</span>
-                <span className="p-ink"></span>
-            </Link>
+    <span className="p-menuitem-icon pi pi-fw pi-power-off"></span>
+    <span className="p-menuitem-text">Sair</span>
+    <span className="p-ink"></span>
+  </Link>
 
   return (
-        <div>
-            <div className="card">
-                <Menubar model={items} start={start} end={end}/>
-            </div>
-        </div>
+    <div>
+      <div className="card">
+        <Menubar model={items} start={start} end={end} />
+      </div>
+    </div>
   )
 }
 
