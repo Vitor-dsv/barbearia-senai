@@ -4,6 +4,7 @@ import { Column } from 'primereact/column'
 import { Button } from 'primereact/button'
 import { Dialog } from 'primereact/dialog'
 import CustomerService from '../../services/Customer/CustomerService'
+import CustomerForm from '../../forms/Customer'
 
 interface ICustomer {
   id: number
@@ -21,12 +22,12 @@ const Customer = () => {
   }
 
   const deleteCustomer = async (id: number) => {
-    // await CustomerService.delete(id)
+    await CustomerService.delete(id)
 
-    // const filteredAttendances = attendances.filter(attendances => attendances?.id !== id)
+    const filteredCustomers = customers.filter(customer => customer?.id !== id)
 
-    // setAttendances(filteredAttendances)
-    // setSelectedAttendance(undefined)
+    setCustomers(filteredCustomers)
+    setSelectedCustomer(undefined)
   }
 
   useEffect(() => {
@@ -35,7 +36,7 @@ const Customer = () => {
 
   return (
     <div className="p-grid p-fluid p-mt-3">
-      <div className="p-col-10 p-md-7 p-mx-auto text"><h1>Atendimentos</h1></div>
+      <div className="p-col-10 p-md-7 p-mx-auto text"><h1>Clientes</h1></div>
       <div className="p-grid p-col-10 p-md-7 p-mx-auto">
         <div className="p-col">
           <Button
@@ -86,14 +87,14 @@ const Customer = () => {
           visible={isVisibleModal}
           onHide={() => setIsVisibleModal(false)}
           style={{ width: '70vw' }}
-          header="Usuário"
+          header="Clientes"
         >
-          {/* <AttendanceForm
-            setAttendances={setAttendances}
-            attendances={attendances}
-            attendance={selectedAttendance}
+          <CustomerForm
+            setCustomers={setCustomers}
+            customers={customers}
+            customer={selectedCustomer}
             onHide={() => setIsVisibleModal(false)}
-          /> */}
+          />
         </Dialog>
       )}
     </div>

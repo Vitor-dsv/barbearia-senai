@@ -3,7 +3,6 @@ import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
 import { Button } from 'primereact/button'
 import { Dialog } from 'primereact/dialog'
-import UserService from '../../services/User/UserService'
 import AttendanceForm from '../../forms/Attendance'
 import AttendanceService from '../../services/Attendance/AttendanceService'
 import moment from 'moment'
@@ -24,7 +23,7 @@ const Attendace = () => {
   }
 
   const deleteAttendance = async (id: number) => {
-    await UserService.delete(id)
+    await AttendanceService.delete(id)
 
     const filteredAttendances = attendances.filter(attendances => attendances?.id !== id)
 
@@ -91,7 +90,7 @@ const Attendace = () => {
           visible={isVisibleModal}
           onHide={() => setIsVisibleModal(false)}
           style={{ width: '70vw' }}
-          header="Usuário"
+          header="Atendimentos"
         >
           <AttendanceForm
             setAttendances={setAttendances}

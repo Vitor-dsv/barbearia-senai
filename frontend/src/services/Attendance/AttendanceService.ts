@@ -35,11 +35,11 @@ class AttendanceService extends BaseService {
     return response.data
   }
 
-  // public static async delete (id: number) {
-  //   const response = await this.api.delete(this.resource)
+  public static async delete (id: number) {
+    const response = await this.api.delete(`atendimento/${id}`)
 
-  //   return response.data
-  // }
+    return response.data
+  }
 }
 
 export default AttendanceService

@@ -13,23 +13,40 @@ class CustomerService extends BaseService {
   //   return response.data
   // }
 
-  // public static async create (data: any) {
-  //   const response = await this.api.post(this.resource, data)
+  public static async create (data: any) {
+    const response = await this.api.post('cliente', {
+      pessoa: {
+        nome: data.name,
+        cpf: data.cpf,
+        data_nascimento: data.birthday,
+        rg: data.rg,
+        telefone: data.phone,
+        endereco: {
+          estado: data.state,
+          cidade: data.city,
+          bairro: data.neighborhood,
+          rua: data.street,
+          numero: data.number,
+          complemento: data.complement,
+          cep: data.cep
+        }
+      }
+    })
 
-  //   return response.data
-  // }
+    return response.data
+  }
 
-  // public static async update (id: number, data:any) {
-  //   const response = await this.api.put(`${this.resource}/${id}`, data)
+  public static async update (data:any) {
+    const response = await this.api.put('cliente', data)
 
-  //   return response.data
-  // }
+    return response.data
+  }
 
-  // public static async delete (id: number) {
-  //   const response = await this.api.delete(this.resource)
+  public static async delete (id: number) {
+    const response = await this.api.delete(`cliente/${id}`)
 
-  //   return response.data
-  // }
+    return response.data
+  }
 }
 
 export default CustomerService

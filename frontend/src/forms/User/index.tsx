@@ -5,6 +5,7 @@ import { Button } from 'primereact/button'
 import UserService from '../../services/User/UserService'
 import UserTypeSelect from '../../components/UserTypeSelect'
 import { InputText } from 'primereact/inputtext'
+import { Calendar } from 'primereact/calendar'
 
 const UserForm = ({ user, users, setUsers, onHide }: any) => {
   const handleSubmit = async (values: any) => {
@@ -47,7 +48,6 @@ const UserForm = ({ user, users, setUsers, onHide }: any) => {
 
   return (
     <form onSubmit={formik.handleSubmit} style={{ marginTop: '20px' }}>
-      {console.log(formik.values.userType)}
       <div className="p-grid p-fluid">
         <div className="p-col-12">
           <span className="p-float-label">
@@ -91,7 +91,7 @@ const UserForm = ({ user, users, setUsers, onHide }: any) => {
         </div>
         <div className="p-col-6">
           <span className="p-float-label">
-            <InputText
+            <Calendar
               id="birthday"
               value={formik.values.birthday}
               onChange={formik.handleChange}
