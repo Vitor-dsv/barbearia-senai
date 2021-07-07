@@ -1,6 +1,8 @@
 import { BaseModel, belongsTo, BelongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import TipoUsuario from './TipoUsuario'
 import Pessoa from './Pessoa'
+import Hash from '@ioc:Adonis/Core/Hash'
+import { beforeSave } from '@ioc:Adonis/Lucid/Orm'
 
 export default class Usuario extends BaseModel {
   public static table = 'usuario'
@@ -28,4 +30,11 @@ export default class Usuario extends BaseModel {
 
   @belongsTo(() => Pessoa, { foreignKey: 'pessoaId' })
   public pessoa: BelongsTo<typeof Pessoa>
+
+  @beforeSave()
+  public static async hashPassword(usuario: Usuario) {
+    if (usuario.$dirty.senha) {
+      usuario.senha = await Hash.make(usuario.senha.toString())
+    }
+  }
 }

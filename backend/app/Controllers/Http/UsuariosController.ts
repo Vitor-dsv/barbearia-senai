@@ -6,7 +6,7 @@ import { autoInjectable } from 'tsyringe'
 
 @autoInjectable()
 export default class UsuariosController implements BaseController {
-  constructor(public _service: UsuariosService) {}
+  constructor(public _service: UsuariosService) { }
 
   public async index({ response }: HttpContextContract) {
     const result = await this._service.find()
@@ -23,6 +23,12 @@ export default class UsuariosController implements BaseController {
     } else {
       throw new Error('ID do registro não encontrado.')
     }
+  }
+
+  public async findTypeBarbeiro({ response }: HttpContextContract) {
+    const result = await this._service.findTypeBarbeiro()
+
+    response.json(result)
   }
 
   async create({ request, response }: HttpContextContract) {
@@ -46,16 +52,15 @@ export default class UsuariosController implements BaseController {
     response.json(result)
   }
 
-  async validUser({ params, response, auth }: HttpContextContract) {
+  async validUser({ params, response }: HttpContextContract) {
     const login = params.login
     const senha = params.senha
 
     const result = await this._service.validUser({ login, senha })
 
     if (result) {
-      await auth.use('basic').authenticate()
-
-      response.json(auth.user)
+      // await auth.use('basic').authenticate()
+      // response.json(auth.user)
     } else {
       response.json('aaaaa')
     }

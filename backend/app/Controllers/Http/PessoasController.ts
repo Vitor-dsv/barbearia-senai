@@ -6,7 +6,7 @@ import { autoInjectable } from 'tsyringe'
 
 @autoInjectable()
 export default class PessoasController implements BaseController {
-  constructor(public _service: PessoasService) {}
+  constructor(public _service: PessoasService) { }
 
   public async index({ response }: HttpContextContract) {
     const result = await this._service.find()
