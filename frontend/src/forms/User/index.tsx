@@ -8,10 +8,10 @@ import { Calendar } from 'primereact/calendar'
 import { useValidateInput } from '../../hooks/useValidateInput'
 import { classNames } from 'primereact/utils'
 import { UserSchema } from './schema'
+import { InputMask } from 'primereact/inputmask'
 
 const UserForm = ({ user, users, setUsers, onHide }: any) => {
   const handleSubmit = async (values: any) => {
-    console.log('dsas')
     try {
       if (user?.id) {
         const data = await UserService.update({ id: user.id, ...values })
@@ -93,11 +93,12 @@ const UserForm = ({ user, users, setUsers, onHide }: any) => {
         </div>
         <div className="p-col-6">
           <span className="p-float-label">
-            <InputText
+            <InputMask
               id="cpf"
               value={formik.values.cpf}
               onChange={formik.handleChange}
               className={classNames({ 'p-invalid': isFormFieldValid('cpf') })}
+              mask="999.999.999-99"
             />
             <label htmlFor="cpf">CPF</label>
           </span>
@@ -117,11 +118,12 @@ const UserForm = ({ user, users, setUsers, onHide }: any) => {
         </div>
         <div className="p-col-6">
           <span className="p-float-label">
-            <InputText
+            <InputMask
               id="rg"
               value={formik.values.rg}
               onChange={formik.handleChange}
               className={classNames({ 'p-invalid': isFormFieldValid('rg') })}
+              mask="9.999.999"
             />
             <label htmlFor="rg">RG</label>
           </span>

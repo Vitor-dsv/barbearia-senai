@@ -70,7 +70,6 @@ const HaircutStyle = () => {
         </div>
       </div>
       <div className="p-col-10 p-md-7 p-mx-auto">
-        {console.log(selectedHaircut)}
         <DataTable
           value={haircuts}
           selection={selectedHaircut}

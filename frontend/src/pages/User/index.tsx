@@ -38,7 +38,6 @@ const User = () => {
     <div className="p-grid p-fluid p-mt-3">
       <div className="p-col-10 p-md-7 p-mx-auto text"><h1>Usuários</h1></div>
       <div className="p-grid p-col-10 p-md-7 p-mx-auto">
-        {console.log(selectedUser)}
         <div className="p-col">
           <Button
             icon="pi pi-plus-circle"

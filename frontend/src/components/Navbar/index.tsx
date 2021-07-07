@@ -6,6 +6,11 @@ import Logo from '../../assets/logo.png'
 const Navbar = () => {
   const items = [
     {
+      label: 'Home',
+      icon: 'pi pi-fw pi-home',
+      url: 'home'
+    },
+    {
       label: 'Usuários',
       icon: 'pi pi-fw pi-user',
       url: 'usuarios'
@@ -28,7 +33,7 @@ const Navbar = () => {
   ]
 
   const start = <img alt="Logo" src={Logo} height="80" className="p-mr-2"></img>
-  const end = <Link to="#" role="menuitem" className="p-menuitem-link" aria-haspopup="false" style={{ borderRadius: 5 }}>
+  const end = <Link onClick={() => localStorage.removeItem('token')} to="/login" role="menuitem" className="p-menuitem-link" aria-haspopup="false" style={{ borderRadius: 5 }}>
     <span className="p-menuitem-icon pi pi-fw pi-power-off"></span>
     <span className="p-menuitem-text">Sair</span>
     <span className="p-ink"></span>
