@@ -15,4 +15,15 @@ export default class UsuariosRepository extends BaseRepository {
 
     return usuarios
   }
+
+  public async getTypeBarbeiro(): Promise<Usuario[]> {
+    const usuarios = await Usuario.query()
+      .where('tipoUsuarioId', 3)
+      .preload('pessoa', (query) => {
+        query.preload('endereco')
+      })
+      .preload('tipoUsuario')
+
+    return usuarios
+  }
 }

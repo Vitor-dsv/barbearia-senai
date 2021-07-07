@@ -25,6 +25,12 @@ export default class UsuariosController implements BaseController {
     }
   }
 
+  public async findTypeBarbeiro({ response }: HttpContextContract) {
+    const result = await this._service.findTypeBarbeiro()
+
+    response.json(result)
+  }
+
   async create({ request, response }: HttpContextContract) {
     const usuario = request.body() as ModifyUserDto
 

@@ -63,6 +63,10 @@ export default class UsuariosService {
     return await this.load(usuario)
   }
 
+  public async findTypeBarbeiro(): Promise<Usuario[]> {
+    return await this._baseRepository.getTypeBarbeiro()
+  }
+
   public async validUser(credenciais: { login: string; senha: string }): Promise<boolean> {
     const usuario =
       (
