@@ -16,7 +16,7 @@ export default class UsuariosService {
     private readonly _baseRepository: UsuariosRepository,
     private readonly _enderecoRepository: EnderecosRepository,
     private readonly pessoaRepository: PessoasRepository
-  ) {}
+  ) { }
 
   public async createOrUpdate(item: ModifyUserDto): Promise<Usuario> {
     const enderecoId = await this.userToEndereco(item.pessoa.endereco)
@@ -24,6 +24,7 @@ export default class UsuariosService {
 
     const usuarioAdd = new Usuario()
     usuarioAdd.merge(item)
+    usuarioAdd.pessoaId = pessoaId
 
     const usuario = (await this._baseRepository.createOrUpdate(usuarioAdd)) as Usuario
 

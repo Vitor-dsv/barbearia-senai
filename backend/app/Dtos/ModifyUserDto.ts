@@ -3,7 +3,7 @@ import { ModifyPessoaDto } from './ModifyPessoaDto'
 export default interface ModifyUserDto {
   login: string
   senha: string
-  tipo_usuario_id: number
+  tipoUsuarioId: number
   foto: string
   pessoa: ModifyPessoaDto
 }
