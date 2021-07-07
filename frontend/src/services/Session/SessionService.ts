@@ -1,16 +1,19 @@
 import BaseService from '../BaseService'
 
 class SessionService extends BaseService {
-  public static login () {
-    // implementacao
-  }
+  public static async login ({ login, senha }: any) {
+    const response = await this.api.post('/usuario/login', {
+      login,
+      senha
+    })
 
-  public static logout () {
-    // implementacao
-  }
+    const { token } = response.data
 
-  public static getLoggedUser (type: any) {
-    // implementacao
+    if (token) {
+      localStorage.setItem('token', token)
+    }
+
+    return token
   }
 }
 

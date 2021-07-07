@@ -14,6 +14,13 @@ export default class UsuariosController implements BaseController {
     response.json(result)
   }
 
+  public async login ({ request, auth }: HttpContextContract) {
+    const { login, senha } = request.only(['login', 'senha'])
+    const token = await auth.use('api').attempt(login, senha)
+
+    return token.toJSON()
+  }
+
   public async findOne({ params, response }: HttpContextContract) {
     const id = params.id
 

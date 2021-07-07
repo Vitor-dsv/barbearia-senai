@@ -13,8 +13,8 @@ export default class Usuario extends BaseModel {
   @column()
   public login: String
 
-  @column()
-  public senha: String
+  @column({ columnName: 'senha' })
+  public password: String
 
   @column()
   public foto: String
@@ -33,8 +33,8 @@ export default class Usuario extends BaseModel {
 
   @beforeSave()
   public static async hashPassword(usuario: Usuario) {
-    if (usuario.$dirty.senha) {
-      usuario.senha = await Hash.make(usuario.senha.toString())
+    if (usuario.$dirty.password) {
+      usuario.password = await Hash.make(usuario.password.toString())
     }
   }
 }

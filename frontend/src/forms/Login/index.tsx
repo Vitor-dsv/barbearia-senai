@@ -7,13 +7,18 @@ import { useFormik } from 'formik'
 import { LoginSchema } from './schema'
 import { useValidateInput } from '../../hooks/useValidateInput'
 import { classNames } from 'primereact/utils'
+import SessionService from '../../services/Session/SessionService'
 
 const LoginForm = () => {
   const history = useHistory()
   const [rememberPassword, setRememberPassword] = useState(true)
 
-  const handleSubmit = () => {
-    history.push('/usuarios')
+  const handleSubmit = async (values: any) => {
+    const token = await SessionService.login({ login: values.login, senha: values.password })
+
+    if (token) {
+      history.push('/usuarios')
+    }
   }
 
   const formik = useFormik({
