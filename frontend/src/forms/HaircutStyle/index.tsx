@@ -3,6 +3,8 @@ import { InputText } from 'primereact/inputtext'
 import { useFormik } from 'formik'
 import { Button } from 'primereact/button'
 import HaircutTypeService from '../../services/HaircutType/HaircutTypeService'
+import { useValidateInput } from '../../hooks/useValidateInput'
+import { classNames } from 'primereact/utils'
 
 const HaircutTypeForm = ({ haircut, haircuts, setHaircuts, onHide }: any) => {
   const handleSubmit = async (values: any) => {
@@ -31,6 +33,8 @@ const HaircutTypeForm = ({ haircut, haircuts, setHaircuts, onHide }: any) => {
     onSubmit: handleSubmit
   })
 
+  const { isFormFieldValid, getFormErrorMessage } = useValidateInput(formik)
+
   return (
     <form onSubmit={formik.handleSubmit} style={{ marginTop: '20px' }}>
       <div className="p-grid p-fluid">
@@ -40,9 +44,11 @@ const HaircutTypeForm = ({ haircut, haircuts, setHaircuts, onHide }: any) => {
               id="description"
               value={formik.values.description}
               onChange={formik.handleChange}
+              className={classNames({ 'p-invalid': isFormFieldValid('description') })}
             />
             <label htmlFor="description">Descrição</label>
           </span>
+          <small className="p-error">{getFormErrorMessage('description')}</small>
         </div>
         <div className="p-col-6">
           <span className="p-float-label">
@@ -50,9 +56,11 @@ const HaircutTypeForm = ({ haircut, haircuts, setHaircuts, onHide }: any) => {
               id="price"
               value={formik.values.price}
               onChange={formik.handleChange}
+              className={classNames({ 'p-invalid': isFormFieldValid('price') })}
             />
             <label htmlFor="price">Preço</label>
           </span>
+          <small className="p-error">{getFormErrorMessage('price')}</small>
         </div>
         <div className="p-col-6">
           <span className="p-float-label">
@@ -60,9 +68,11 @@ const HaircutTypeForm = ({ haircut, haircuts, setHaircuts, onHide }: any) => {
               id="duration"
               value={formik.values.duration}
               onChange={formik.handleChange}
+              className={classNames({ 'p-invalid': isFormFieldValid('duration') })}
             />
             <label htmlFor="duration">Duração</label>
           </span>
+          <small className="p-error">{getFormErrorMessage('duration')}</small>
         </div>
         <div className="p-col-12">
           <Button label="Salvar" />

@@ -1,6 +1,18 @@
 import * as Yup from 'yup'
 
-export const LoginSchema = Yup.object().shape({
-  login: Yup.string().required('Informe o seu login!'),
-  password: Yup.string().required('Informe a sua senha!')
+const requiredMessage = 'Este campo é obrigatório!'
+
+export const AttendanceSchema = Yup.object().shape({
+  datetime: Yup.date()
+    .required(requiredMessage)
+    .nullable(),
+  haircut: Yup.number()
+    .required(requiredMessage)
+    .nullable(),
+  customer: Yup.number()
+    .required(requiredMessage)
+    .nullable(),
+  user: Yup.number()
+    .required(requiredMessage)
+    .nullable()
 })

@@ -81,7 +81,7 @@ const HaircutStyle = () => {
             <Column selectionMode="single" style={{ width: '3em' }}/>
             <Column field="id" header="ID" />
             <Column field="descricao" header="Descrição" />
-            <Column field="preco" header="Preço" />
+            <Column field="preco" header="Preço" body={data => `R$ ${data.preco}`} />
             <Column field="duracao" header="Duração" />
         </DataTable>
       </div>

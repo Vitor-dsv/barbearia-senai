@@ -17,6 +17,7 @@ const UserTypeSelect = (props: any) => {
       value={props.value}
       onChange={props.onChange}
       showClear={true}
+      className={props.className}
     />
   )
 }

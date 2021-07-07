@@ -18,18 +18,19 @@ class AttendanceService extends BaseService {
       data_horario: data.datetime,
       tipoCorteCabeloId: data.haircut,
       clienteId: data.customer,
-      usuarioId: 7
+      usuarioId: data.user
     })
 
     return response.data
   }
 
   public static async update (data: any) {
-    const response = await this.api.put('atendimentos', {
+    const response = await this.api.put('atendimento', {
       id: data.id,
-      dataHorario: data.datetime,
+      data_horario: data.datetime,
       tipoCorteCabeloId: data.haircut,
-      clienteId: data.customer
+      clienteId: data.customer,
+      usuarioId: data.user
     })
 
     return response.data

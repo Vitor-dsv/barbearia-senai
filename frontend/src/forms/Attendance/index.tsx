@@ -9,10 +9,15 @@ import { Dropdown } from 'primereact/dropdown'
 import moment from 'moment'
 import CustomerService from '../../services/Customer/CustomerService'
 import AttendanceService from '../../services/Attendance/AttendanceService'
+import UserService from '../../services/User/UserService'
+import { AttendanceSchema } from './schema'
+import { classNames } from 'primereact/utils'
+import { useValidateInput } from '../../hooks/useValidateInput'
 
 const AttendanceForm = ({ attendance, attendances, setAttendances, onHide }: any) => {
   const [haircutOptions, setHaircutOptions] = useState([])
   const [customerOptions, setCustomerOptions] = useState([])
+  const [usersOptions, setUsersOptions] = useState([])
 
   const getHaircutTypes = async () => {
     const haircutOptions = await HaircutTypeService.getAll()
@@ -24,9 +29,15 @@ const AttendanceForm = ({ attendance, attendances, setAttendances, onHide }: any
     setCustomerOptions(customerOptions)
   }
 
+  const getUsers = async () => {
+    const customerOptions = await UserService.getAll()
+    setUsersOptions(customerOptions)
+  }
+
   useEffect(() => {
     getHaircutTypes()
     getCustomers()
+    getUsers()
   }, [])
 
   const handleSubmit = async (values: any) => {
@@ -50,25 +61,30 @@ const AttendanceForm = ({ attendance, attendances, setAttendances, onHide }: any
     initialValues: {
       datetime: new Date(moment(attendance?.data_horario).format('DD/MM/YYYY HH:mm')) || null,
       haircut: attendance?.tipoCorteCabelo?.id || null,
-      customer: attendance?.cliente?.id || null
+      customer: attendance?.cliente?.id || null,
+      user: attendance?.usuario?.id || null
     },
+    validationSchema: AttendanceSchema,
     onSubmit: handleSubmit
   })
 
+  const { isFormFieldValid, getFormErrorMessage } = useValidateInput(formik)
+
   return (
     <form onSubmit={formik.handleSubmit} style={{ marginTop: '20px' }}>
-      {/* {console.log(formik.values.datetime, attendance.data_horario)} */}
       <div className="p-grid p-fluid">
-        <div className="p-col-12">
+        <div className="p-col-6">
           <span className="p-float-label">
             <Calendar
               id="datetime"
               value={formik.values.datetime}
               onChange={formik.handleChange}
+              className={classNames({ 'p-invalid': isFormFieldValid('datetime') })}
               showTime
             />
-            <label htmlFor="login">Login</label>
+            <label htmlFor="datetime">Data e horário</label>
           </span>
+          <small className="p-error">{getFormErrorMessage('datetime')}</small>
         </div>
         <div className="p-col-6">
           <span className="p-float-label">
@@ -80,9 +96,11 @@ const AttendanceForm = ({ attendance, attendances, setAttendances, onHide }: any
               value={formik.values.haircut}
               onChange={formik.handleChange}
               showClear={true}
+              className={classNames({ 'p-invalid': isFormFieldValid('haircut') })}
             />
-            <label htmlFor="userType">Tipo</label>
+            <label htmlFor="userType">Tipo do corte</label>
           </span>
+          <small className="p-error">{getFormErrorMessage('haircut')}</small>
         </div>
         <div className="p-col-6">
           <span className="p-float-label">
@@ -94,24 +112,28 @@ const AttendanceForm = ({ attendance, attendances, setAttendances, onHide }: any
               value={formik.values.customer}
               onChange={formik.handleChange}
               showClear={true}
+              className={classNames({ 'p-invalid': isFormFieldValid('customer') })}
             />
-            <label htmlFor="userType">Tipo</label>
+            <label htmlFor="userType">Cliente</label>
           </span>
+          <small className="p-error">{getFormErrorMessage('customer')}</small>
         </div>
-        {/* <div className="p-col-6">
+        <div className="p-col-6">
           <span className="p-float-label">
             <Dropdown
-              id="customer"
-              options={customerOptions}
+              id="user"
+              options={usersOptions}
               optionLabel="pessoa.nome"
               optionValue="id"
-              value={formik.values.customer}
+              value={formik.values.user}
               onChange={formik.handleChange}
               showClear={true}
+              className={classNames({ 'p-invalid': isFormFieldValid('user') })}
             />
-            <label htmlFor="userType">Tipo</label>
+            <label htmlFor="userType">Barbeiro</label>
           </span>
-        </div> */}
+          <small className="p-error">{getFormErrorMessage('user')}</small>
+        </div>
         <div className="p-col-12">
           <Button label="Salvar" />
         </div>

@@ -37,7 +37,25 @@ class CustomerService extends BaseService {
   }
 
   public static async update (data:any) {
-    const response = await this.api.put('cliente', data)
+    const response = await this.api.put('cliente', {
+      id: data.id,
+      pessoa: {
+        nome: data.name,
+        cpf: data.cpf,
+        data_nascimento: data.birthday,
+        rg: data.rg,
+        telefone: data.phone,
+        endereco: {
+          estado: data.state,
+          cidade: data.city,
+          bairro: data.neighborhood,
+          rua: data.street,
+          numero: data.number,
+          complemento: data.complement,
+          cep: data.cep
+        }
+      }
+    })
 
     return response.data
   }

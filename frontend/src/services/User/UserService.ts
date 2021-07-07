@@ -14,28 +14,26 @@ class UserService extends BaseService {
   // }
 
   public static async create (data: any) {
-    const response = await this.api.post('usuario-sistema', {
-      idTipoUsuario: data.userType,
-      usuario: {
-        login: data.login,
-        senha: data.password,
-        foto: ''
-      },
+    const response = await this.api.post('usuario', {
+      tipo_usuario_id: data.userType,
+      login: data.login,
+      senha: data.password,
+      foto: '',
       pessoa: {
         nome: data.name,
         cpf: data.cpf,
         data_nascimento: data.birthday,
         rg: data.rg,
-        telefone: data.phone
-      },
-      endereco: {
-        estado: data.state,
-        cidade: data.city,
-        bairro: data.neighborhood,
-        rua: data.street,
-        numero: data.number,
-        complemento: data.complement,
-        cep: data.cep
+        telefone: data.phone,
+        endereco: {
+          estado: data.state,
+          cidade: data.city,
+          bairro: data.neighborhood,
+          rua: data.street,
+          numero: data.number,
+          complemento: data.complement,
+          cep: data.cep
+        }
       }
     })
 
@@ -43,7 +41,29 @@ class UserService extends BaseService {
   }
 
   public static async update (data:any) {
-    const response = await this.api.put('usuarios', data)
+    const response = await this.api.put('usuario', {
+      id: data.id,
+      tipo_usuario_id: data.userType,
+      login: data.login,
+      senha: data.password,
+      foto: '',
+      pessoa: {
+        nome: data.name,
+        cpf: data.cpf,
+        data_nascimento: data.birthday,
+        rg: data.rg,
+        telefone: data.phone,
+        endereco: {
+          estado: data.state,
+          cidade: data.city,
+          bairro: data.neighborhood,
+          rua: data.street,
+          numero: data.number,
+          complemento: data.complement,
+          cep: data.cep
+        }
+      }
+    })
 
     return response.data
   }
