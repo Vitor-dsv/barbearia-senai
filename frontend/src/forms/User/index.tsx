@@ -235,7 +235,9 @@ const UserForm = ({ user, users, setUsers, onHide }: any) => {
           </span>
           <small className="p-error">{getFormErrorMessage('userType')}</small>
         </div>
-        <div className="p-col-12">
+        <div className="p-col-4">
+        </div>
+        <div className="p-col-4">
           <Button label="Salvar" type="submit" />
         </div>
       </div>

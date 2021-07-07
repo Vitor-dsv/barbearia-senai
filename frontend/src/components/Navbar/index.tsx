@@ -6,22 +6,22 @@ import Logo from '../../assets/logo.png'
 const Navbar = () => {
   const items = [
     {
-      label: 'Usuário',
+      label: 'Usuários',
       icon: 'pi pi-fw pi-user',
       url: 'usuarios'
     },
     {
-      label: 'Cliente',
+      label: 'Clientes',
       icon: 'pi pi-fw pi-user-plus',
       url: 'clientes'
     },
     {
-      label: 'Atendimento',
+      label: 'Atendimentos',
       icon: 'pi pi-fw pi-calendar-plus',
       url: 'atendimentos'
     },
     {
-      label: 'Corte',
+      label: 'Cortes',
       icon: 'pi pi-fw pi-pencil',
       url: 'cortes'
     }

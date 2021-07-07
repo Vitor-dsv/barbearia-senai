@@ -73,7 +73,7 @@ const AttendanceForm = ({ attendance, attendances, setAttendances, onHide }: any
   return (
     <form onSubmit={formik.handleSubmit} style={{ marginTop: '20px' }}>
       <div className="p-grid p-fluid">
-        <div className="p-col-6">
+        <div className="p-col-12">
           <span className="p-float-label">
             <Calendar
               id="datetime"
@@ -86,7 +86,7 @@ const AttendanceForm = ({ attendance, attendances, setAttendances, onHide }: any
           </span>
           <small className="p-error">{getFormErrorMessage('datetime')}</small>
         </div>
-        <div className="p-col-6">
+        <div className="p-col-12">
           <span className="p-float-label">
             <Dropdown
               id="haircut"
@@ -102,7 +102,7 @@ const AttendanceForm = ({ attendance, attendances, setAttendances, onHide }: any
           </span>
           <small className="p-error">{getFormErrorMessage('haircut')}</small>
         </div>
-        <div className="p-col-6">
+        <div className="p-col-12">
           <span className="p-float-label">
             <Dropdown
               id="customer"
@@ -118,7 +118,7 @@ const AttendanceForm = ({ attendance, attendances, setAttendances, onHide }: any
           </span>
           <small className="p-error">{getFormErrorMessage('customer')}</small>
         </div>
-        <div className="p-col-6">
+        <div className="p-col-12">
           <span className="p-float-label">
             <Dropdown
               id="user"
@@ -134,7 +134,9 @@ const AttendanceForm = ({ attendance, attendances, setAttendances, onHide }: any
           </span>
           <small className="p-error">{getFormErrorMessage('user')}</small>
         </div>
-        <div className="p-col-12">
+        <div className="p-col-4">
+        </div>
+        <div className="p-col-4">
           <Button label="Salvar" />
         </div>
       </div>

@@ -79,6 +79,7 @@ const HaircutStyle = () => {
           selectionMode="checkbox"
           paginator rows={5}
           rowsPerPageOptions={[5, 15, 30, 50, 100]}
+          emptyMessage="Sem registro na tabela."
         >
           <Column selectionMode="single" style={{ width: '3em' }} />
           <Column field="id" header="ID" />
@@ -92,7 +93,7 @@ const HaircutStyle = () => {
           modal={true}
           visible={isVisibleModal}
           onHide={() => setIsVisibleModal(false)}
-          style={{ width: '70vw' }}
+          style={{ width: '40vw' }}
           header="Corte de cabelo"
         >
           <HaircutStyleForm

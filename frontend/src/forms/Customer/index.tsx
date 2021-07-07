@@ -199,7 +199,9 @@ const CustomerForm = ({ customer, customers, setCustomers, onHide }: any) => {
           </span>
           <small className="p-error">{getFormErrorMessage('cep')}</small>
         </div>
-        <div className="p-col-12">
+        <div className="p-col-4">
+        </div>
+        <div className="p-col-4">
           <Button label="Salvar" />
         </div>
       </div>

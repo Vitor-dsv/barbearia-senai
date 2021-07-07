@@ -5,6 +5,8 @@ import { Button } from 'primereact/button'
 import HaircutTypeService from '../../services/HaircutType/HaircutTypeService'
 import { useValidateInput } from '../../hooks/useValidateInput'
 import { classNames } from 'primereact/utils'
+import { HaircutSchema } from './schema'
+import { InputMask } from 'primereact/inputmask'
 
 const HaircutTypeForm = ({ haircut, haircuts, setHaircuts, onHide }: any) => {
   const handleSubmit = async (values: any) => {
@@ -30,6 +32,7 @@ const HaircutTypeForm = ({ haircut, haircuts, setHaircuts, onHide }: any) => {
       price: haircut?.preco || '',
       duration: haircut?.duracao || ''
     },
+    validationSchema: HaircutSchema,
     onSubmit: handleSubmit
   })
 
@@ -38,7 +41,7 @@ const HaircutTypeForm = ({ haircut, haircuts, setHaircuts, onHide }: any) => {
   return (
     <form onSubmit={formik.handleSubmit} style={{ marginTop: '20px' }}>
       <div className="p-grid p-fluid">
-        <div className="p-col-12">
+        <div className="p-field p-col-12 p-md-12">
           <span className="p-float-label">
             <InputText
               id="description"
@@ -64,7 +67,8 @@ const HaircutTypeForm = ({ haircut, haircuts, setHaircuts, onHide }: any) => {
         </div>
         <div className="p-col-6">
           <span className="p-float-label">
-            <InputText
+            <InputMask
+              mask="99:99"
               id="duration"
               value={formik.values.duration}
               onChange={formik.handleChange}
@@ -74,7 +78,9 @@ const HaircutTypeForm = ({ haircut, haircuts, setHaircuts, onHide }: any) => {
           </span>
           <small className="p-error">{getFormErrorMessage('duration')}</small>
         </div>
-        <div className="p-col-12">
+        <div className="p-col-4">
+        </div>
+        <div className="p-col-4">
           <Button label="Salvar" />
         </div>
       </div>
