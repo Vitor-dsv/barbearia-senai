@@ -59,12 +59,12 @@ const Attendace = () => {
         </div>
         <div className="p-col">
           <Button
-          icon="pi pi-times-circle"
-          label="Excluir"
-          className="p-button-secondary"
-          disabled={!selectedAttendance?.id}
-          onClick={() => deleteAttendance(Number(selectedAttendance?.id))}
-        />
+            icon="pi pi-times-circle"
+            label="Excluir"
+            className="p-button-secondary"
+            disabled={!selectedAttendance?.id}
+            onClick={() => deleteAttendance(Number(selectedAttendance?.id))}
+          />
         </div>
       </div>
       <div className="p-col-10 p-md-7 p-mx-auto datatable-responsive-demo">
@@ -75,8 +75,10 @@ const Attendace = () => {
           rowHover
           selectionMode="checkbox"
           className="p-datatable-responsive-demo"
+          paginator rows={5}
+          rowsPerPageOptions={[5, 15, 30, 50, 100]}
         >
-          <Column selectionMode="single" style={{ width: '3em' }}/>
+          <Column selectionMode="single" style={{ width: '3em' }} />
           <Column field="id" header="ID" />
           <Column field="data_horario" header="Data" body={data => moment(data.data_horario).format('DD/MM/YYYY HH:mm')} />
           <Column field="tipoCorteCabelo.descricao" header="Corte" />

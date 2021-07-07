@@ -59,12 +59,12 @@ const User = () => {
         </div>
         <div className="p-col">
           <Button
-          icon="pi pi-times-circle"
-          label="Excluir"
-          className="p-button-secondary"
-          disabled={!selectedUser?.id}
-          onClick={() => deleteUser(Number(selectedUser?.id))}
-        />
+            icon="pi pi-times-circle"
+            label="Excluir"
+            className="p-button-secondary"
+            disabled={!selectedUser?.id}
+            onClick={() => deleteUser(Number(selectedUser?.id))}
+          />
         </div>
       </div>
       <div className="p-col-10 p-md-7 p-mx-auto datatable-responsive-demo">
@@ -75,14 +75,16 @@ const User = () => {
           rowHover
           selectionMode="checkbox"
           className="p-datatable-responsive-demo"
+          paginator rows={5}
+          rowsPerPageOptions={[5, 15, 30, 50, 100]}
         >
-            <Column selectionMode="single" style={{ width: '3em' }}/>
-            <Column field="id" header="ID" />
-            <Column field="login" header="Login" />
-            <Column field="pessoa.nome" header="Nome" />
-            <Column field="pessoa.cpf" header="CPF" />
-            <Column field="pessoa.endereco.cidade" header="Cidade" />
-            <Column field="tipoUsuario.descricao" header="Tipo" />
+          <Column selectionMode="single" style={{ width: '3em' }} />
+          <Column field="id" header="ID" />
+          <Column field="login" header="Login" />
+          <Column field="pessoa.nome" header="Nome" />
+          <Column field="pessoa.cpf" header="CPF" />
+          <Column field="pessoa.endereco.cidade" header="Cidade" />
+          <Column field="tipoUsuario.descricao" header="Tipo" />
         </DataTable>
       </div>
       {isVisibleModal && (

@@ -61,12 +61,12 @@ const HaircutStyle = () => {
         </div>
         <div className="p-col">
           <Button
-          icon="pi pi-times-circle"
-          label="Excluir"
-          className="p-button-secondary"
-          disabled={!selectedHaircut?.id}
-          onClick={() => deleteHaircut(Number(selectedHaircut?.id))}
-        />
+            icon="pi pi-times-circle"
+            label="Excluir"
+            className="p-button-secondary"
+            disabled={!selectedHaircut?.id}
+            onClick={() => deleteHaircut(Number(selectedHaircut?.id))}
+          />
         </div>
       </div>
       <div className="p-col-10 p-md-7 p-mx-auto">
@@ -77,12 +77,14 @@ const HaircutStyle = () => {
           onSelectionChange={e => setSelectedHaircut(e.value)}
           rowHover
           selectionMode="checkbox"
+          paginator rows={5}
+          rowsPerPageOptions={[5, 15, 30, 50, 100]}
         >
-            <Column selectionMode="single" style={{ width: '3em' }}/>
-            <Column field="id" header="ID" />
-            <Column field="descricao" header="Descrição" />
-            <Column field="preco" header="Preço" body={data => `R$ ${data.preco}`} />
-            <Column field="duracao" header="Duração" />
+          <Column selectionMode="single" style={{ width: '3em' }} />
+          <Column field="id" header="ID" />
+          <Column field="descricao" header="Descrição" />
+          <Column field="preco" header="Preço" body={data => `R$ ${data.preco}`} />
+          <Column field="duracao" header="Duração" />
         </DataTable>
       </div>
       {isVisibleModal && (

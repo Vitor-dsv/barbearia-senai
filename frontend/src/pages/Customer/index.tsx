@@ -58,12 +58,12 @@ const Customer = () => {
         </div>
         <div className="p-col">
           <Button
-          icon="pi pi-times-circle"
-          label="Excluir"
-          className="p-button-secondary"
-          disabled={!selectedCustomer?.id}
-          onClick={() => deleteCustomer(Number(selectedCustomer?.id))}
-        />
+            icon="pi pi-times-circle"
+            label="Excluir"
+            className="p-button-secondary"
+            disabled={!selectedCustomer?.id}
+            onClick={() => deleteCustomer(Number(selectedCustomer?.id))}
+          />
         </div>
       </div>
       <div className="p-col-10 p-md-7 p-mx-auto datatable-responsive-demo">
@@ -74,8 +74,10 @@ const Customer = () => {
           rowHover
           selectionMode="checkbox"
           className="p-datatable-responsive-demo"
+          paginator rows={5}
+          rowsPerPageOptions={[5, 15, 30, 50, 100]}
         >
-          <Column selectionMode="single" style={{ width: '3em' }}/>
+          <Column selectionMode="single" style={{ width: '3em' }} />
           <Column field="id" header="ID" />
           <Column field="pessoa.nome" header="Nome" />
           <Column field="pessoa.telefone" header="Telefone" />
