@@ -6,35 +6,24 @@ import Logo from '../../assets/logo.png'
 const Navbar = () => {
   const items = [
     {
-      label: 'Cadastrar',
-      icon: 'pi pi-fw pi-plus',
-      items: [
-        {
-          label: 'Usuário',
-          icon: 'pi pi-fw pi-user',
-          url: 'usuarios'
-        },
-        {
-          label: 'Cliente',
-          icon: 'pi pi-fw pi-user-plus',
-          url: 'clientes'
-        },
-        {
-          label: 'Atendimento',
-          icon: 'pi pi-fw pi-calendar-plus',
-          url: 'atendimentos'
-        },
-        {
-          label: 'Corte',
-          icon: 'pi pi-fw pi-pencil',
-          url: 'cortes'
-        }
-
-      ]
+      label: 'Usuário',
+      icon: 'pi pi-fw pi-user',
+      url: 'usuarios'
     },
     {
-      label: 'Agenda',
-      icon: 'pi pi-fw pi-calendar'
+      label: 'Cliente',
+      icon: 'pi pi-fw pi-user-plus',
+      url: 'clientes'
+    },
+    {
+      label: 'Atendimento',
+      icon: 'pi pi-fw pi-calendar-plus',
+      url: 'atendimentos'
+    },
+    {
+      label: 'Corte',
+      icon: 'pi pi-fw pi-pencil',
+      url: 'cortes'
     }
   ]
 
