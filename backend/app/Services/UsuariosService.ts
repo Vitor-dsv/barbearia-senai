@@ -9,6 +9,7 @@ import EnderecosRepository from 'App/Repositories/EnderecosRepository'
 import EnderecoDto from 'App/Dtos/EnderecoDto'
 import PessoasRepository from 'App/Repositories/PessoasRepository'
 import { ModifyPessoaDto } from 'App/Dtos/ModifyPessoaDto'
+import { Hash } from '@adonisjs/core/build/standalone'
 
 @autoInjectable()
 export default class UsuariosService {
