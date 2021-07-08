@@ -1,29 +1,29 @@
-// import { all, call, put, takeLatest } from 'redux-saga/effects'
-// import SessionService from '../../services/Session/SessionService'
-// import {
-//   SET_LOGGED_USER,
-//   SET_LOGGED_USER_SUCCESS,
-//   SET_LOGGED_USER_ERROR
-// } from './types'
+import { all, call, put, takeLatest } from 'redux-saga/effects'
+import SessionService from '../../services/Session/SessionService'
+import {
+  LOGIN_SUCCESS,
+  LOGIN_ERROR,
+  LOGIN
+} from './types'
 
-// export function * getLoggedUser ({ payload }: any): any {
-//   try {
-//     const { token } = payload
-//     const response = yield call(SessionService.getLoggedUser, token)
+export function * setUserByToken (): any {
+  try {
+    const user = yield call(SessionService.getLoggedUser)
+    console.log(user)
 
-//     yield put({ type: SET_LOGGED_USER_SUCCESS, payload: response.data })
-//   } catch (error) {
-//     yield put({ type: SET_LOGGED_USER_ERROR })
-//   }
-// }
+    yield put({ type: LOGIN_SUCCESS, payload: user })
+  } catch (error) {
+    yield put({ type: LOGIN_ERROR })
+  }
+}
 
-// export function * watchSession () {
-//   yield takeLatest(SET_LOGGED_USER, getLoggedUser)
-// }
+export function * watchSession () {
+  yield takeLatest(LOGIN, setUserByToken)
+}
 
-// export default function * rootSaga () {
-//   yield all([
-//     call(watchSession)
-//   ])
-// }
-export {}
+export default function * rootSaga () {
+  yield all([
+    call(watchSession)
+  ])
+}
+// export {}

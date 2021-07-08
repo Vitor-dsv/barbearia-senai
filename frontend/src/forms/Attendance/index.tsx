@@ -81,6 +81,7 @@ const AttendanceForm = ({ attendance, attendances, setAttendances, onHide }: any
               onChange={formik.handleChange}
               className={classNames({ 'p-invalid': isFormFieldValid('datetime') })}
               showTime
+              dateFormat="dd/MM/yy hh:mm"
             />
             <label htmlFor="datetime">Data e horário</label>
           </span>

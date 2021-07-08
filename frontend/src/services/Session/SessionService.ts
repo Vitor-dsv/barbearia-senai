@@ -1,4 +1,4 @@
-import BaseService from '../BaseService'
+import BaseService, { api } from '../BaseService'
 
 class SessionService extends BaseService {
   public static async login ({ login, senha }: any) {
@@ -14,6 +14,12 @@ class SessionService extends BaseService {
     }
 
     return token
+  }
+
+  public static async getLoggedUser (): Promise<any> {
+    const response = await api.get('usuario-logado')
+
+    return response.data
   }
 }
 

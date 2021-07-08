@@ -1,8 +1,18 @@
-import { LOGIN, LOGOUT } from './types'
+import { LOGIN, LOGIN_ERROR, LOGIN_SUCCESS } from './types'
 
-const initialState = {
+export interface State {
   session: {
-    user: { id: 1 }
+    user: any
+    error: boolean
+    loading: boolean
+  }
+}
+
+const initialState: State = {
+  session: {
+    user: {},
+    error: false,
+    loading: false
   }
 }
 
@@ -11,15 +21,33 @@ const reducer = (state = initialState, action: any) => {
     case LOGIN:
       return {
         session: {
-          user: action.payload
+          ...state.session,
+          loading: true,
+          error: false
         }
       }
-    case LOGOUT:
+    case LOGIN_SUCCESS:
       return {
         session: {
-          user: {}
+          ...initialState.session,
+          user: action!.payload
         }
       }
+    case LOGIN_ERROR:
+      return {
+        session: {
+          ...state.session,
+          loading: false,
+          error: true
+        }
+      }
+      // case LOGOUT:
+      //   return {
+      //     session: {
+
+    //       user: {}
+    //     }
+    //   }
     default:
       return state
   }

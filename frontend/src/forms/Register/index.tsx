@@ -84,13 +84,14 @@ const RegisterForm = () => {
         </div>
         <div className="p-col-12">
           <span className="p-float-label">
-          <label htmlFor="icon">Icon</label>
+            <label htmlFor="icon">Icon</label>
             <Calendar
               id="birthday"
               value={formik.values.birthday}
               onChange={formik.handleChange}
               className={classNames({ 'p-invalid': isFormFieldValid('birthday') })}
               readOnlyInput
+              dateFormat="dd/mm/yy"
             />
             <label htmlFor="birthday">Data de nascimento*</label>
           </span>

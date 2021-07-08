@@ -8,8 +8,6 @@ export const CustomerSchema = Yup.object().shape({
     .max(50, 'Nome muito longo (acima de 50 caracteres)')
     .required(requiredMessage),
   cpf: Yup.string()
-    .min(11, 'CPF inválido!')
-    .max(11, 'CPF inválido!')
     .required(requiredMessage),
   rg: Yup.string()
     .required(requiredMessage),

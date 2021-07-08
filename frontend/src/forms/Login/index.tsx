@@ -54,6 +54,7 @@ const LoginForm = () => {
           <span className="p-float-label">
             <InputText
               id="password"
+              type="password"
               value={formik.values.password}
               onChange={formik.handleChange}
               className={classNames({ 'p-invalid': isFormFieldValid('password') })}

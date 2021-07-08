@@ -1,10 +1,9 @@
 // import SessionService from '../../services/Session/SessionService'
 import { LOGIN, LOGOUT } from './types'
 
-export const login = (user: any) => {
+export const login = () => {
   return {
-    type: LOGIN,
-    payload: user
+    type: LOGIN
   }
 }
 

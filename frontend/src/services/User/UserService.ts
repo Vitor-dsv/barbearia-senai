@@ -1,4 +1,5 @@
 import BaseService from '../BaseService'
+import moment from 'moment'
 
 class UserService extends BaseService {
   public static async getAll () {
@@ -22,7 +23,7 @@ class UserService extends BaseService {
       pessoa: {
         nome: data.name,
         cpf: data.cpf,
-        data_nascimento: data.birthday,
+        data_nascimento: moment(data.birthday).format('YYYY-MM-DD'),
         rg: data.rg,
         telefone: data.phone,
         endereco: {
@@ -40,7 +41,7 @@ class UserService extends BaseService {
     return response.data
   }
 
-  public static async update (data:any) {
+  public static async update (data: any) {
     const response = await this.api.put('usuario', {
       id: data.id,
       tipo_usuario_id: data.userType,
@@ -50,7 +51,7 @@ class UserService extends BaseService {
       pessoa: {
         nome: data.name,
         cpf: data.cpf,
-        data_nascimento: data.birthday,
+        data_nascimento: moment(data.birthday).format('YYYY-MM-DD'),
         rg: data.rg,
         telefone: data.phone,
         endereco: {

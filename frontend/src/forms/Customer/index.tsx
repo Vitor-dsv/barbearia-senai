@@ -86,6 +86,7 @@ const CustomerForm = ({ customer, customers, setCustomers, onHide }: any) => {
               value={formik.values.birthday}
               onChange={formik.handleChange}
               className={classNames({ 'p-invalid': isFormFieldValid('birthday') })}
+              dateFormat="dd/mm/yy"
             />
             <label htmlFor="birthday">Data de nascimento</label>
           </span>

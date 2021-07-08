@@ -11,13 +11,13 @@ export default class Usuario extends BaseModel {
   public id: number
 
   @column()
-  public login: String
+  public login: string
 
   @column({ columnName: 'senha' })
-  public password: String
+  public password: string
 
   @column()
-  public foto: String
+  public foto: string
 
   @column({ columnName: 'tipo_usuario_id' })
   public tipoUsuarioId: number
@@ -30,6 +30,8 @@ export default class Usuario extends BaseModel {
 
   @belongsTo(() => Pessoa, { foreignKey: 'pessoaId' })
   public pessoa: BelongsTo<typeof Pessoa>
+
+  public rememberMeToken: string
 
   @beforeSave()
   public static async hashPassword(usuario: Usuario) {

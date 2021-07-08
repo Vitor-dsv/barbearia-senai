@@ -6,7 +6,7 @@ import { autoInjectable } from 'tsyringe'
 
 @autoInjectable()
 export default class UsuariosController implements BaseController {
-  constructor(public _service: UsuariosService) { }
+  constructor(public _service: UsuariosService) {}
 
   public async index({ response }: HttpContextContract) {
     const result = await this._service.find()
@@ -14,11 +14,15 @@ export default class UsuariosController implements BaseController {
     response.json(result)
   }
 
-  public async login ({ request, auth }: HttpContextContract) {
+  public async login({ request, auth }: HttpContextContract) {
     const { login, senha } = request.only(['login', 'senha'])
     const token = await auth.use('api').attempt(login, senha)
 
     return token.toJSON()
+  }
+
+  public loggedUser({ auth, response }: HttpContextContract) {
+    return response.ok(auth.user)
   }
 
   public async findOne({ params, response }: HttpContextContract) {
