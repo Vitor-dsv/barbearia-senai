@@ -9,7 +9,6 @@ import {
 export function * setUserByToken (): any {
   try {
     const user = yield call(SessionService.getLoggedUser)
-    console.log(user)
 
     yield put({ type: LOGIN_SUCCESS, payload: user })
   } catch (error) {

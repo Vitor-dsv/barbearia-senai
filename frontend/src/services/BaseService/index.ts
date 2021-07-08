@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { useHistory } from 'react-router-dom'
 
 export const api = axios.create({
   baseURL: 'http://localhost:3333'
@@ -13,13 +12,14 @@ api.interceptors.request.use((config: any) => {
   }
 
   return config
-}, (error) => {
-  console.log(error)
+})
+
+api.interceptors.response.use(response => {
+  return response
+}, error => {
   if (error.response.status === 401) {
-    console.log('AAAAAAAAA')
+    location.href = '/login'
     localStorage.removeItem('token')
-    const history = useHistory()
-    history.push('/login')
   }
   return error
 })
