@@ -9,6 +9,7 @@ import { useValidateInput } from '../../hooks/useValidateInput'
 import { classNames } from 'primereact/utils'
 import { UserSchema } from './schema'
 import { InputMask } from 'primereact/inputmask'
+import moment from 'moment'
 
 const UserForm = ({ user, users, setUsers, onHide }: any) => {
   const handleSubmit = async (values: any) => {
@@ -27,14 +28,16 @@ const UserForm = ({ user, users, setUsers, onHide }: any) => {
       console.log(error)
     }
   }
-
   const formik = useFormik({
     initialValues: {
       login: user?.login || '',
       password: user?.senha || '',
       name: user?.pessoa?.nome || '',
       cpf: user?.pessoa?.cpf || '',
-      birthday: user?.pessoa?.data_nascimento || null,
+      birthday:
+        user?.pessoa?.data_nascimento
+          ? new Date(moment(user?.pessoa?.data_nascimento).format('DD/MM/YYYY HH:mm'))
+          : undefined,
       rg: user?.pessoa?.rg || '',
       phone: user?.pessoa?.telefone || '',
       state: user?.pessoa?.endereco?.estado || '',
